@@ -1,0 +1,101 @@
+## Experimental Trading Strategy
+
+### Overview
+This experimental trading strategy implements a dynamic ping-pong trading approach with market direction analysis and risk management. The strategy uses 24-hour market data and RSI indicators to determine optimal entry points and subsequent trading levels.
+
+### Key Components
+
+#### 1. Market Analysis
+- **24hr High/Low**: Establishes the trading range baseline
+- **24hr Volume**: Indicates market activity level
+- **36hr Volume**: Provides volume trend comparison
+- **24hr Direction**: Shows overall market trend percentage
+- **RSI Indicator**: Determines market momentum and potential direction
+
+#### 2. Entry Strategy
+1. **Initial Direction Assessment**
+   - Uses RSI to determine market direction (Up/Down)
+   - Analyzes 24hr trend percentage
+   - Decides whether to start with a buy or sell order
+
+2. **Price Level Determination**
+   - Base Ask Price: Current market ask price
+   - Total Spread: Desired trading range
+   - Calculates:
+     - Current Buy Price = Base Ask Price - (Total Spread / 2)
+     - Current Sell Price = Base Ask Price + (Total Spread / 2)
+
+#### 3. Ping-Pong Trading Levels
+The strategy creates multiple trading levels for ping-pong trading:
+- **Level 1**: Base spread
+- **Level 2**: 1.5x base spread
+- **Level 3**: 2x base spread
+
+Each level includes:
+- Buy price
+- Sell price
+- Potential ROI calculation
+
+#### 4. Risk Management
+- Stop Loss Percentage
+- Price Boundaries:
+  - Minimum Buy Price
+  - Maximum Buy Price
+  - Minimum Sell Price
+  - Maximum Sell Price
+
+### Trading Process
+
+1. **Initial Setup**
+   ```
+   1. Connect to exchange
+   2. Fetch current market data
+   3. Calculate RSI and determine trend
+   4. Set base ask price and spread
+   ```
+
+2. **Entry Position**
+   ```
+   If RSI indicates UP:
+     Place initial buy order at Current Buy Price
+   If RSI indicates DOWN:
+     Place initial sell order at Current Sell Price
+   ```
+
+3. **Ping-Pong Trading**
+   ```
+   For each level (1-3):
+     Calculate buy price = BaseAskPrice - (TotalSpread * level_multiplier / 2)
+     Calculate sell price = BaseAskPrice + (TotalSpread * level_multiplier / 2)
+     Calculate ROI = ((sell_price - buy_price) / buy_price) * 100
+   ```
+
+4. **Risk Control**
+   ```
+   Monitor positions:
+     If price < MinBuyPrice: Cancel buy orders
+     If price > MaxBuyPrice: Cancel buy orders
+     If price < MinSellPrice: Cancel sell orders
+     If price > MaxSellPrice: Cancel sell orders
+     If loss > StopLossPercent: Close position
+   ```
+
+### Usage
+
+1. Connect to your preferred exchange
+2. Input base configuration:
+   - Trading pair
+   - Base ask price
+   - Total spread
+3. Review and set risk parameters
+4. Monitor the generated ping-pong levels
+5. Activate trading when conditions align
+
+### Important Notes
+
+- Always start with small position sizes
+- Monitor ROI calculations for each level
+- Regularly check market direction indicators
+- Adjust spreads based on market volatility
+- Keep stop-loss orders active
+- Review and adjust risk parameters regularly
