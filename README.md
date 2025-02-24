@@ -4,6 +4,9 @@ A comprehensive web application for visualizing and testing various trading stra
 
 ## Features
 
+### Update 24.02.24 
+There is just so much I have to understand first before circling back to this. But the idea is to have a single interface that is the strategy files. that are bound to Hbots. with performance. so you can slect the strategy see where its running and how its doing and be able to make adjustments.. "Backurner project" 
+
 - Multiple trading strategies:
   - Simple PMM (Pure Market Making)
   - Dynamic PMM
